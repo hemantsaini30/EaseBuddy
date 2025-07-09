@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EaseBuddy - Modern UI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- 🔵 Modern Header -->
+  <div class="navbar">
+    <div class="logo">
+      <i class="fas fa-graduation-cap"></i> 
+      <span>Ease<span class="logo-highlight">Buddy</span></span>
+    </div>
+    
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search chapters/resources..." class="search-input">
+    </div>
+
+    <div class="navbar-actions">
+      <div class="actions-dropdown">
+        <button class="dropdown-btn">
+          <i class="fas fa-graduation-cap"></i> Resources
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="#" id="motivationBtn"><i class="fas fa-fire"></i> Motivation</a>
+          <a href="#" id="topperBtn"><i class="fas fa-trophy"></i> Topper Interviews</a>
+          <a href="#" id="analyticsBtn"><i class="fas fa-chart-line"></i> Analytics</a>
+        </div>
+      </div>
+
+      <button class="icon-btn" id="plannerBtn" title="Planner">
+        <i class="fas fa-calendar-alt"></i>
+      </button>
+      <button class="icon-btn" id="themeToggle" title="Dark Mode">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Doubt Solver Section -->
+  <div class="doubt-solver-container">
+    <div class="doubt-input-container">
+      <input type="text" id="doubtInput" placeholder="Write your doubt here...">
+    </div>
+    <button id="solveDoubtBtn" class="gradient-btn">
+      <i class="fas fa-lightbulb"></i> Solve Doubt
+    </button>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <div class="container">
+    <!-- 🟣 Enhanced Sidebar -->
+    <div class="sidebar">
+      <h3><i class="fas fa-book-open"></i> Subjects</h3>
+      <div id="subjectList" class="subject-list"></div>
+      
+      <!-- Streak Counter -->
+      <div class="streak-counter">
+        <div class="streak-icon">
+          <i class="fas fa-fire"></i>
+          <div class="flame-animation"></div>
+        </div>
+        <span>7-day streak!</span>
+        <small>Keep it up!</small>
+      </div>
+    </div>
+    
+    <!-- Main Content Area -->
+    <div class="main-content">
+      <!-- 🟢 Progress Overview -->
+      <div class="main-progress-container">
+        <h2><i class="fas fa-chart-simple"></i> Overall Progress</h2>
+        <div class="progress-ring-container">
+          <div class="progress-ring">
+            <svg width="120" height="120">
+              <circle class="progress-ring-bg" cx="60" cy="60" r="50"/>
+              <circle class="progress-ring-fill" cx="60" cy="60" r="50"/>
+            </svg>
+            <span id="overallProgressText">0%</span>
+          </div>
+          <div class="progress-details">
+            <p>Your learning journey</p>
+            <div class="chapter-count">
+              <span id="completedChapters">0</span>/<span id="totalChapters">0</span> chapters
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Subject Progress -->
+      <div id="subjectProgressContainer" class="subject-progress-container hidden">
+        <h2 id="subjectProgressTitle"><i class="fas fa-star"></i> Subject Progress</h2>
+        <div class="progress-comparison">
+          <div class="subject-progress-chart">
+            <div class="progress-bar-container">
+              <div class="progress-bar">
+                <div id="subjectProgressFill" class="progress-fill"></div>
+              </div>
+              <span id="subjectProgressText">0%</span>
+            </div>
+            <p>Progress in <strong id="currentSubjectName">Mathematics</strong></p>
+          </div>
+          <div class="subject-recommendation">
+            <i class="fas fa-lightbulb"></i>
+            <p id="subjectTip">Focus on your weakest chapters first</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Subject Chapters Display -->
+      <div id="subjectDisplay" class="chapter-display hidden">
+        <h2 id="subjectTitle"><i class="fas fa-list-check"></i> Subject Chapters</h2>
+        <div class="chapter-list" id="chapterList"></div>
+      </div>
+      
+      <!-- 🟠 Analytics Display -->
+      <div id="analyticsDisplay" class="analytics-display hidden">
+        <h2><i class="fas fa-chart-pie"></i> Your Learning Analytics</h2>
+        <div class="analytics-grid">
+          <div class="analytics-card">
+            <h3><i class="fas fa-chart-line"></i> Subject Progress</h3>
+            <div id="analyticsSubjects" class="analytics-subjects"></div>
+          </div>
+          <div class="analytics-card">
+            <h3><i class="fas fa-clock"></i> Study Patterns</h3>
+            <div id="studyPatterns" class="study-patterns"></div>
+          </div>
+          <div class="analytics-card">
+            <h3><i class="fas fa-trophy"></i> Performance</h3>
+            <canvas id="performanceChart" height="200"></canvas>
+          </div>
+          <div class="analytics-card">
+            <h3><i class="fas fa-calendar-check"></i> Completion Rate</h3>
+            <canvas id="completionChart" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Doubt Display -->
+      <div id="doubtDisplay" class="doubt-display hidden">
+        <!-- Content will be populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Planner Modal -->
+  <div id="plannerModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-calendar-days"></i> Study Planner</h2>
+      <div id="calendarDays" class="calendar-days"></div>
+      <div id="taskSection">
+        <div class="task-header">
+          <h3 id="selectedDateTitle">Tasks for <span id="taskDate"></span></h3>
+          <div id="taskInputContainer">
+            <input type="text" id="taskInput" placeholder="Add a task...">
+            <button id="addTaskBtn" class="gradient-btn small">
+              <i class="fas fa-plus"></i> Add
+            </button>
+          </div>
+        </div>
+        <ul id="taskList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter Resources Modal -->
+  <div id="resourcesModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="resourcesTitle"><i class="fas fa-book"></i> Chapter Resources</h2>
+      <div class="resources-container">
+        <div class="resource-category">
+          <h3><i class="fas fa-video"></i> Video Lectures</h3>
+          <div id="videoLectures" class="resource-list"></div>
+        </div>
+        <div class="resource-category">
+          <h3><i class="fas fa-file-pdf"></i> Study Materials</h3>
+          <div id="studyMaterials" class="resource-list"></div>
+        </div>
+        <div class="resource-category">
+          <h3><i class="fas fa-question-circle"></i> Previous Year Questions</h3>
+          <div id="pyqs" class="resource-list"></div>
+        </div>
+        <div class="resource-category">
+          <h3><i class="fas fa-book"></i> Recommended Books</h3>
+          <div id="recommendedBooks" class="resource-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
