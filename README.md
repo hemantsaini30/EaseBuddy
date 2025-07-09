@@ -29,11 +29,11 @@
 ## 📁 Folder Structure
 
 EaseBuddy/
-│
-├── index.html       # Main HTML file
-├── styles.css       # Styling for the UI
-├── script.js        # Handles dynamic subject/chapter logic
-└── README.md        # Project info
+
+- index.html       # Main HTML file
+- styles.css       # Styling for the UI
+- script.js        # Handles dynamic subject/chapter logic
+- README.md        # Project info
 
 ---
 
